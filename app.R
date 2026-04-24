@@ -32,45 +32,45 @@ library(ggplot2)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-  
-  
+
+
   includeCSS("www/myStyle.css"),
   shinyjs::useShinyjs(), ## Include shinyjs
-  
-  # Application title
+
+    # Application title
   # Application title
   fluidRow(br()),
-  
+
   div(id = "titleId",
       p("This calculator estimates",
         span(style ='font-style:italic', "in utero" ),
-        "postnatal kidney survival at the age of 2 years, in fetuses with bilateral CAKUT, based on standardized ultrasound readings described by Buffin-Mayer and al., Journal Name, Year. Please cite this paper in your publications."),
+        "This calculator estimates in utero postnatal kidney survival at the age of 2 years, in fetuses with bilateral CAKUT, based on standardized ultrasound readings described by Buffin-Meyer and al., NDT, 2024. Please cite this paper in your publications."),
       p(style = "font-style:italic",
         "Disclamer, this web site is provided for educational and informational purposes only and does not constitute providing medical advice or professional services."
-      )
-      
+        )
+
   ),
-  titlePanel(
-    
-    title = NULL,
-    
-    windowTitle = "Prediction of renal postnatal outcome"
-    
-  ),
-  
-  # Sidebar with a slider input for number of bins
-  
-  
+    titlePanel(
+
+      title = NULL,
+
+      windowTitle = "Prediction of renal postnatal outcome"
+
+    ),
+
+    # Sidebar with a slider input for number of bins
+
+
   fixedRow(
     column(5,
-           
+
            #hr(),
            div(
              class = "well",
              h4("Ultrasound features"),
              hr(),
-             
-             
+
+
              radioGroupButtons(
                inputId = "var1",
                label = list("Reduced amniotic fluid",div(class = "info", actionButton(inputId = "click_info_var1",
@@ -91,7 +91,7 @@ ui <- fluidPage(
                             lib = "glyphicon")),
                individual = TRUE,
              ),
-             
+
              radioGroupButtons(
                inputId = "var2",
                label = list("Kidney dysplasia",div(class = "info", actionButton(inputId = "click_info_var2",
@@ -111,7 +111,7 @@ ui <- fluidPage(
                             lib = "glyphicon")),
                individual = TRUE
              ),
-             
+
              radioGroupButtons(
                inputId = "var3",
                label = list("Kidney cysts",div(class = "info", actionButton(inputId = "click_info_var3",
@@ -131,10 +131,10 @@ ui <- fluidPage(
                             lib = "glyphicon")),
                individual = TRUE
              ),
-             
+
            ),
            hr(),
-           
+
            fixedRow(
              column(6,
                     div(
@@ -149,60 +149,60 @@ ui <- fluidPage(
                         style="font-weight:bold;font-size: 1.5em"
                       )
                       #)
-                      
+
                     )
              )
-             
+
            ),
            fluidRow(br()),
            fluidRow(br()),
            fluidRow(br()),
-           
+
            div(id = "logo",
-               tags$img(src="rflabxx.png",width="70%")
+             tags$img(src="rflabxx.png",width="70%")
            )
-           
-    ),
-    
+
+           ),
+
     column(7,
-           
+
            fixedRow(column(12,
                            fluidRow(br()),
                            HTML(paste(' <ol style = "list-style-type: none;font-weight:bold;color: #760001;font-size: 16px">
                                 The predicted PROBABILITY that your patient has a SEVERE postnatal renal outcome is:
                                 ',fluidRow(br()),'
                                 <li style = "font-weight:bold;font-size: 1em; color:black">',
-                                      tags$b(textOutput("ProbYes")),'</li>
+                                tags$b(textOutput("ProbYes")),'</li>
                                  </ol>'))
-                           
-                           
+
+
            )),
            hr(),
-           
+
            plotOutput("GraphPrediction",
                       height = "500px")
-           
-    )
-  )
-  
-  
-  
+
+           )
+           )
+
+
+
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-  
+
   prediction_model<-reactiveValues(pred = NULL)
-  
-  
+
+
   observeEvent(
     ignoreNULL = TRUE,
     eventExpr = {
       input$click_info_var1
     },
-    
+
     handlerExpr = {
-      
+
       showModal(modalDialog(
         title = "Helper",
         p(column(12,
@@ -213,15 +213,15 @@ server <- function(input, output, session) {
         size = "l", easyClose = TRUE, fade=TRUE, footer = modalButton("Close (Esc)")
       ))
     })
-  
+
   observeEvent(
     ignoreNULL = TRUE,
     eventExpr = {
       input$click_info_var2
     },
-    
+
     handlerExpr = {
-      
+
       showModal(modalDialog(
         title = "Helper",
         p(column(12,
@@ -233,15 +233,15 @@ server <- function(input, output, session) {
         size = "l", easyClose = TRUE, fade=TRUE, footer = modalButton("Close (Esc)")
       ))
     })
-  
+
   observeEvent(
     ignoreNULL = TRUE,
     eventExpr = {
       input$click_info_var3
     },
-    
+
     handlerExpr = {
-      
+
       showModal(modalDialog(
         title = "Helper",
         p(column(12,
@@ -252,36 +252,45 @@ server <- function(input, output, session) {
         size = "l", easyClose = TRUE, fade=TRUE, footer = modalButton("Close (Esc)")
       ))
     })
-  
-  
-  
+
+
+
   observeEvent(
     ignoreNULL = TRUE,
     eventExpr = {
       input$predict
     },
     handlerExpr = {
-      
+
       prediction_model$pred<-1/(1+exp(-(-6.635+4.039*as.numeric(input$var1)+2.983*as.numeric(input$var2)+1.987*as.numeric(input$var3))))
-      
-      
+
+
       output$ProbYes<-renderText({
         paste(round(prediction_model$pred,3)*100,"%")
       })
-      
-      
-      
-      
+
+
+
+
       output$GraphPrediction<-renderPlot({
-        
+
         if(!is.null(prediction_model$pred)){
-          # vjust=1 = bas (Low risk 0%), vjust=0 = haut (High risk 100%)
+          # if(prediction_model$pred*100<=25){
+          #   position_pred<-0.12
+          # } else if(prediction_model$pred*100>25 & prediction_model$pred*100<=50){
+          #   position_pred<-0.37
+          # } else if(prediction_model$pred*100>50 & prediction_model$pred*100<=75){
+          #   position_pred<-0.63
+          # } else if(prediction_model$pred*100>75){
+          #   position_pred<-0.88
+          # }
+          
           position_pred <-  prediction_model$pred
-          
+
           data_legend<-data.frame(a = seq(0,100, by=10), b = seq(0,100, by=10), I = seq(0,100, by=10))
-          
+
           labels<-paste0(c("Low risk - 0",25,50,75,"High risk - 100"),"%")
-          
+
           ggplot_legend<-ggplot(data_legend) +
             aes(x = a, y = b, colour = I) +
             geom_point(size =100) +
@@ -291,14 +300,14 @@ server <- function(input, output, session) {
                                                         label.position = "left",
                                                         title.position = "right",
                                                         title.vjust = position_pred,
-                                                        
+
                                                         #ticks.linewidth = 0.2,
                                                         ticks = FALSE
-                                 ),
+                                                        ),
                                  labels = labels
             )+
             theme_gray() +
-            
+
             labs(colour ="<---- Prediction of your patient")+
             theme(
               legend.title = element_text(size = rel(1.65), face = "bold", hjust = 0.5, color = "#760001"),
@@ -310,20 +319,20 @@ server <- function(input, output, session) {
               legend.text.align = 1,
               legend.spacing.x = unit(0.12,"cm")
             )
-          
-          
-          
-          
+
+
+
+
           legend <- get_legend(ggplot_legend)
           grid.newpage()
           grid.draw(legend)
         }
-        
+
       })
-      
+
     })
-  
-  
+
+
 }
 
 # Run the application
