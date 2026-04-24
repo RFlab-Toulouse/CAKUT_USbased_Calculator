@@ -1,0 +1,194 @@
+body{
+background-color: #FFF;
+background-size: cover;
+background-repeat: no-repeat;
+margin:auto;
+width: 80%;
+}
+
+#titleId{
+  margin: auto;
+  padding: auto;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: hsla(0, 20%, 98%, 0.815); 
+  color: black;
+  font-size: 18px;
+  border: solid #f7f0f0 2px;
+  border-radius: 0 0 20px #f7f0f0;
+  width: 100%;
+  }
+  
+h3,h4{
+font-weight: bold;
+color:#760001;
+font-size: 16px;
+}
+h5{
+  font-weight: bold;
+  color: #760001;
+  }
+h6{
+font-weight: bold;
+color: #000;
+font-size: small;
+}
+
+.footer {
+background-color: silver;
+border-color: #A33307;
+border-width : 1px;
+border-style: solid;
+text-align: center;
+height: 20px;
+color: black;
+font-size: 0.9em;
+font-weight: normal;
+}
+.footer>a {
+color: purple;
+font-weight: bold;
+text-decoration: none;
+}
+.footer>a:hover {
+color: black;
+}
+table{
+border-collapse: collapse;
+font-weight:bold;
+color: #000;
+font-size:x-small;
+}
+th,td{
+border: 1px solid #000;padding: 5px;
+}
+.nav li a.disabled {
+background-color:#11ffee00 !important;
+color: #333 !important;
+cursor: not-allowed !important;
+border-color: #aaa !important;
+}
+#analysisNavbar{
+font-size: 1em;
+font-weight:bold;
+margin-bottom: 0px;
+}
+#analysisNavbar a:hover{
+color: #760001;
+border-bottom: #760001;
+box-shadow: 0 0 10px #760001;
+}
+#LegendNorm{
+display: inline-block;
+position: relative;
+left: 0;
+width: 235px;
+padding: 1px 1px 1px 1px;
+height: auto;
+margin: 1px 1px 1px 1px;
+}
+#LegendSampleNam{
+display: inline-block;
+position: relative;
+left: 0;
+width: 100%;
+padding: 1px 1px 1px 1px;
+margin: 1px 1px 1px 1px;
+height: auto;
+}
+#id_LegendNormDistribution{
+display: inline-block;
+position: relative;
+left: 0;
+width: 235px;
+padding: 1px 1px 1px 1px;
+height: auto;
+margin: 1px 1px 1px 1px;
+}
+#id_LegendSampleNamDistribution{
+display: inline-block;
+position: relative;
+left: 0;
+width: 100%;
+padding: 1px 1px 1px 1px;
+margin: 1px 1px 1px 1px;
+height: auto;
+}
+#Id_LegendCEtimeCorrect{
+display: inline-block;
+position: relative;
+width: 100%;
+padding: 1px 1px 1px 1px;
+margin: 1px 1px 1px 1px;
+height: auto;
+}
+
+#UnitTime_sampleCutting_id label{
+font-weight:bold;
+color: #000;
+font-size: small;
+}
+#shinytheme-selector{
+font-weight: bold;
+color: #000;
+}
+.info{
+/*display: flex;*/
+display: inline-block;
+align-items: center;
+}
+
+.myIcoInfo:hover{
+/*color: #760001;
+border-bottom: #760001;
+box-shadow: 0 0 20px #760001;
+*/
+color: blue;
+border-bottom: blue;
+box-shadow: 0 0 20px blue;
+}
+.bullText{
+font-weight:bold;
+color: #000;
+font-size: small;
+}
+
+.infoNormTitle{
+font-weight: bold;
+font-size: 0.9em;
+text-align: left;
+color: black;
+}
+
+.infoNorm{
+font-size: 0.8em;
+text-align: left;
+color: black;
+}
+/*
+.parentIcon{
+  height: 22px;
+  width: 22px;
+  border: 2px solid lightcyan;
+  border-radius: 25px;
+  padding-left: 15px;
+  }
+.selectSampleViewer{
+  height: 138px;
+}
+.parentIcon i{
+font-size: 20px;
+}*/
+
+#logo{
+margin: auto;
+text-align: center;
+padding:0px;
+border-width:0px;
+
+}
